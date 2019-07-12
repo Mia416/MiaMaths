@@ -36,5 +36,7 @@ class Gen_Data:
 
     def Generate_Int(self,n,m):
         return random.randint(int(n),int(m))
+    def Generate_IntRange(self,n,m,step):
+        return random.randrange(int(n),int(m),int(step))
     def Generate_Decimal(self,n,m,t):
         return (round(random.uniform(float(n),float(m)),int(t)))
