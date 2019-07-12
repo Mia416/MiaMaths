@@ -15,7 +15,8 @@ def generatenum(n):
         #modelB()
 
 def generateDecimalA(n):
-    return (round(random.uniform(0.01,0.59),n))
+    #return (round(random.uniform(0.01,0.59),n))
+    return (round(random.uniform(0.0001,0.0020),n))
 
 def generateDecimal(n):
     return (round(random.uniform(0.01,9.99),n))
@@ -42,29 +43,29 @@ def modelSub():
 #5.55+1.44
 def modelPlus():
     s0 = generateDecimalMiuns(2)
-    s1 = generateDecimalA(3)
+    s1 = generateDecimalA(4)
     m = "+"
     re = operator.add(s0, s1)
-    print("%.2f %s %.3f = " %(s0,m,s1))
+    print("%.2f %s %.4f = " %(s0,m,s1))
     return re
 
 #0.44*28
 def modelC():
-    s0 = generateDecimalA(2)
+    s0 = generateDecimalA(4)
     s1 = generateInt(30)
     m = "×"
     re = operator.mul(s0, s1)
-    print("%.2f %s %d = " %(s0,m,s1))
+    print("%.4f %s %d = " %(s0,m,s1))
     return re
 
 
 #0.44÷15
 def modelD():
-    s0 = generateDecimalA(2)
+    s0 = generateDecimalA(4)
     s1 = generateInt(30)
     m = "÷"
     re = operator.mul(s0, s1)
-    print("%.2f %s %.2f = " %(re,m,s0))
+    print("%.4f %s %.4f = " %(re,m,s0))
     return re
 
 
@@ -73,7 +74,7 @@ def modelA():
     s0 = generateDecimal(1)
     s1 = generateDecimal(3)
     m = "×"
-    re = round(operator.mul(s0, s1),4)
+    re = operator.mul(s0, s1)
     print("%.1f %s %.1f = " %(s0,m,s1))
     return re
 
@@ -101,8 +102,8 @@ def weight_choice(weight):
 def generate(n):
     result_group = {}
     for i in range(n):
-        model = list[weight_choice([10,0,0,0,0,0])]
-        print(i,':')
+        model = list[weight_choice([2, 2, 2, 2,1,1])]
+        #print(n)
         if model=="A":
              result_ = modelA()
         if model=="B":
@@ -116,7 +117,7 @@ def generate(n):
         if model=="F":
             result_ = modelSub()
         result_group[str(i)] = result_
-        
+
     for key,value in result_group.items():
             print (key, '=>', result_group[key])
 
