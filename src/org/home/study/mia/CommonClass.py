@@ -2,6 +2,7 @@ from docx import *
 from docx.shared import Pt
 import random
 import operator
+from docx.shared import Inches
 
 
 
@@ -24,6 +25,9 @@ class M_Doc:
         p.style = Tstyle
         p.add_run(content)
         #print(content)
+    def Add_Picture(self,document,picpath):
+        document.add_picture(picpath, width=Inches(10.25))
+
 
     def Save_Doc(self,document,name):
         document.save(name)
