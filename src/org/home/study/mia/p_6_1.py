@@ -130,7 +130,7 @@ def generate(n):
     d = M_Doc()
     result_group = {}
     for i in range(n):
-        model = list[weight_choice([2,2, 2, 1,1,1,1])]
+        model = list[weight_choice([1,1,1,1,2,2,2])]
         if model=="A":
             result,result_ = modelA()
         if model=="B":
