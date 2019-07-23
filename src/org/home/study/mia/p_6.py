@@ -140,9 +140,11 @@ def generate(n):
         if model=="G":
              result,result_ = modelG()
 
+        print(result)
+        print(result_)
         d.Add_Process(document,result)
         #d.Add_Process(document,"")
-               
+
         result_group[str(i)] = result_
 
     for key,value in result_group.items():
@@ -151,7 +153,7 @@ def generate(n):
             s_temp = "%s => %s " %(number,val)
             #print (key, '=>', result_group[key])
             #d.Add_Process(document,s_temp)
-            
+
     d.Save_Doc(document,"t3.docx")
 
-generate(500)
+generate(50)

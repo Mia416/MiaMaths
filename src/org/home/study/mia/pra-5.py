@@ -6,87 +6,90 @@
 import random
 import operator
 from decimal import Decimal
+from docx import *
+from docx.shared import Pt
+from CommonClass import M_Doc
+from CommonClass import Gen_Data
 
 #debug use
 def generatenum(n):
     for i in range(n):
-        modelD()
-        #modelA()
-        #modelB()
+        result,result_ = modelA()
+        print (result)
+        print (result_)
 
-def generateDecimalA(n):
-    #return (round(random.uniform(0.01,0.59),n))
-    return (round(random.uniform(0.0001,0.0020),n))
 
-def generateDecimal(n):
-    return (round(random.uniform(0.01,9.99),n))
 
-def generateDecimalMiuns(n):
-    return (round(random.uniform(0.01,50.00),n))
-
-def generateInt(n):
-    return random.randint(1,int(n))
-
-def generateIntSub(n,m):
-    return random.randint(int(n),int(m))
-
-#51-5.55
+#51-5.555
 def modelSub():
-    s0 = generateIntSub(50,99)
-    s1 = generateDecimalMiuns(2)
-    m = "-"
+    G_data= Gen_Data()
+    s0 =  G_data.Generate_Int(50,99)
+    s1 =  G_data.Generate_Decimal(1.001,30.001,3)
+    op =  G_data.opSub
     re = operator.sub(s0, s1)
-    print("%d %s %.2f = " %(s0,m,s1))
-    return re
+    result = "%d %s %.3f = " %(s0,op,s1)
+    result_ = float(re)
+    return result,result_
 
 
-#5.55+1.44
+#5.55+1.444
 def modelPlus():
-    s0 = generateDecimalMiuns(2)
-    s1 = generateDecimalA(4)
-    m = "+"
+    G_data= Gen_Data()
+    s0 =  G_data.Generate_Decimal(1.01,50.00,2)
+    s1 =  G_data.Generate_Decimal(1.001,30.001,3)
+    op =  G_data.opAdd
     re = operator.add(s0, s1)
-    print("%.2f %s %.4f = " %(s0,m,s1))
-    return re
+    result = "%.2f %s %.3f = " %(s0,op,s1)
+    result_ = float(re)
+    return result,result_
 
 #0.44*28
 def modelC():
-    s0 = generateDecimalA(4)
-    s1 = generateInt(30)
-    m = "×"
-    re = operator.mul(s0, s1)
-    print("%.4f %s %d = " %(s0,m,s1))
-    return re
+    G_data= Gen_Data()
+    s0 =  G_data.Generate_Int(1,99)
+    s1 =  G_data.Generate_Int(1,20)
+    op =  G_data.opDiv
+    re =  operator.truediv(operator.mul(s0, s1),10000)
+    s0 =  operator.truediv(s0,100)
+    result = "%.4f %s %.2f = " %(re,op,s0)
+    result_ = float(operator.truediv(s1,100))
+    return result,result_
 
 
-#0.44÷15
+#37.820÷4
 def modelD():
-    s0 = generateDecimalA(4)
-    s1 = generateInt(30)
-    m = "÷"
+    G_data= Gen_Data()
+    s0 =  G_data.Generate_Decimal(1.001,10.001,3)
+    s1 =  G_data.Generate_Int(1,20)
+    op =  G_data.opDiv
     re = operator.mul(s0, s1)
-    print("%.4f %s %.4f = " %(re,m,s0))
-    return re
+    result = "%.3f %s %d = " %(re,op,s1)
+    result_ = float(s0)
+    return result,result_
 
 
-#0.5×0.555
+#0.5×0.55
 def modelA():
-    s0 = generateDecimal(1)
-    s1 = generateDecimal(3)
-    m = "×"
+    G_data= Gen_Data()
+    s0 =  G_data.Generate_Decimal(1.00,20.00,1)
+    s1 =  G_data.Generate_Decimal(1.00,10.00,2)
+    op =  G_data.opMul
     re = operator.mul(s0, s1)
-    print("%.1f %s %.1f = " %(s0,m,s1))
-    return re
+    result = "%.1f %s %.2f = " %(s0,op,s1)
+    result_ = float(re)
+    return result,result_
 
 
-#9.9÷15
+#4.42÷2.6
 def modelB():
-    s0 = generateDecimal(1)
-    s1 = generateInt(20)
-    m = "÷"
+    G_data= Gen_Data()
+    s0 =  G_data.Generate_Decimal(1.00,20.00,1)
+    s1 =  G_data.Generate_Decimal(1.00,10.00,1)
+    op =  G_data.opDiv
     re = operator.mul(s0, s1)
-    print("%.1f %s %d = " %(re,m,s1))
-    return re
+    result = "%.3f %s %.1f = " %(re,op,s0)
+    result_ = float(s1)
+    return result,result_
 
 
 
@@ -101,24 +104,36 @@ def weight_choice(weight):
 
 def generate(n):
     result_group = {}
+    document = Document()
+    d = M_Doc()
     for i in range(n):
         model = list[weight_choice([2, 2, 2, 2,1,1])]
         #print(n)
         if model=="A":
-             result_ = modelA()
+             result,result_ = modelA()
         if model=="B":
-             result_ = modelB()
+             result,result_ = modelB()
         if model=="C":
-            result_ = modelC()
+            result,result_  = modelC()
         if model=="D":
-            result_ = modelD()
+             result,result_ = modelD()
         if model=="E":
-            result_ = modelPlus()
+            result,result_ = modelPlus()
         if model=="F":
-            result_ = modelSub()
+            result,result_ = modelSub()
+
+        d.Add_Process(document,result)
         result_group[str(i)] = result_
 
     for key,value in result_group.items():
-            print (key, '=>', result_group[key])
+            number = str(key)
+            val = result_group[key]
+            s_temp = "%s => %s " %(number,val)
+            d.Add_Process(document,s_temp)
 
-generate(100)
+    d.Save_Doc(document,"t7.docx")
+
+
+
+
+generate(1000)

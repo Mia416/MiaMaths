@@ -24,7 +24,13 @@ class M_Doc:
         p = document.add_paragraph()
         p.style = Tstyle
         p.add_run(content)
-        #print(content)
+
+
+        def Message():
+            return content
+
+        print(Message())    
+
     def Add_Picture(self,document,picpath):
         document.add_picture(picpath, width=Inches(10.25))
 
@@ -32,9 +38,19 @@ class M_Doc:
     def Save_Doc(self,document,name):
         document.save(name)
 
+        def Message():
+            return "%s has been generated" %(name)
+
+        print (Message())
+
 
 
 class Gen_Data:
+
+    opAdd = '+'
+    opSub = '-'
+    opMul = '×'
+    opDiv = '÷'
     def _init_(self):
         print("init")
 
