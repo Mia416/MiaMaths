@@ -5,6 +5,7 @@ from CommonClass import Gen_Data
 import random
 import operator
 import math
+import time
 
 
 
@@ -163,6 +164,7 @@ def generate(n):
     document = Document()
     d = M_Doc()
     result_group = {}
+    start = time.clock()
     for i in range(n):
         model = list[weight_choice([1,1,1,1,1,1,1,1,1,1])]
         if model=="A":
@@ -194,6 +196,9 @@ def generate(n):
 
         result_group[str(i)] = result_
 
+    end = time.clock()
+    t=end-start
+
     for key,value in result_group.items():
             number = str(key)
             val = result_group[key]
@@ -202,5 +207,6 @@ def generate(n):
             d.Add_Process(document,s_temp)
 
     d.Save_Doc(document,"t7.docx")
+    print("Runtime is ：",t) 
 
-generate(1000)
+generate(500)
